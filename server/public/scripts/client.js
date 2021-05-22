@@ -28,7 +28,7 @@ function handleClear(){
 function highlightOperator(){
     // newCalculation.operator = $(this).text();
     // console.log(newCalculation);  
-    $(this).toggleClass("blue");
+    $(this).toggleClass("blue"); //
 }
 
 function gatherCalculation(){
@@ -44,9 +44,9 @@ function gatherCalculation(){
         if ($('#num1In').val() && $('#num2In').val()){
 
             $('.blue').each (function(i){
-                newCalculation.operator = $(this).text();
+                 newCalculation.operator = $(this).text();
             }); 
-            
+                
             calculationsCounter += 1;
             newCalculation.count = calculationsCounter;
             newCalculation.num1 = $('#num1In').val();

@@ -1,3 +1,42 @@
+
+body{
+    background-color: #214785;
+    color: #EAC9B8;
+}
+
+header{
+    background-color: #EAC9B8;
+    color: #214785; 
+}
+
+.centerText{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#inputSection{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.operatorButton{
+    background-color: #214785;
+    color: white;
+}
+
+.endBtn{
+    background-color: #D96767;
+    color: white;
+}
 .blue{
-    background-color: aqua;
+    background-color: #D96767;
+}
+
+.tableHead{
+    padding-bottom: 20px;
+}
+
+thead, tbody{
+    color: white;
 }

@@ -12,21 +12,23 @@
         <script src="./scripts/client.js"></script>
     </head>
     <body>
-        <h1>Calculate!</h1>
-        <section>
-            <input type="number" class="numInput" id="num1In" placeholder="enter number">
-            <button class="operatorButton" id="addButton">+</button>
-            <button class="operatorButton" id="subtractButton">-</button>
-            <button class="operatorButton" id="multiplyButton">*</button>
-            <button class="operatorButton" id="divideButton">/</button>
-            <input type="number" class="numInput" id="num2In" placeholder="enter another number">
-            <button id="equalsButton">=</button>
-            <button id="clearButton">Clear</button>
+        <header>
+        <h1 class="centerText">Calculate!</h1>
+        <section id="inputSection">
+            <input type="number" class="numInput btn btn-light" id="num1In" placeholder="enter number">
+            <button class="operatorButton btn btn-light" id="addButton">+</button>
+            <button class="operatorButton btn btn-light" id="subtractButton">-</button>
+            <button class="operatorButton btn btn-light" id="multiplyButton">*</button>
+            <button class="operatorButton btn btn-light" id="divideButton">/</button>
+            <input type="number" class="numInput btn btn-light" id="num2In" placeholder="enter number">
+            <button class="endBtn btn btn-light" id="equalsButton">=</button>
+            <button class="endBtn btn btn-light" id="clearButton">Clear</button>
         </section>
 
-        <h2>Result: <span id="resultSpan"></span></h2>
-        <h2>Calculation History</h2>
-        <section>
+        <h2 class="centerText">Result: <span id="resultSpan"></span></h2>
+        <h2 class="tableHead">Calculation History</h2>
+        </header>
+        <section id="secondSection">
             <table class="table">
                 <thead>
                     <tr>
