@@ -43,6 +43,7 @@ app.post('/calculations', (req, res) =>{
     console.log(req.body);
     calculateSolution(req.body);
     calculationsArray.push(req.body);
+    res.sendStatus(201);
 })
 
 

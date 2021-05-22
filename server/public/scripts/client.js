@@ -11,10 +11,10 @@ function handleReady(){
     $('#equalsButton').on('click', gatherCalculation);
     $('.operatorButton').on('click', getOperator);
     $('#clearButton').on('click', handleClear);
-    // let newObj = {}; //tucker's method to get operator. figure out!
-}
 
-let operatorArray = [];
+    newCalculation = {}; //tucker's method to get operator. figure out!
+}
+let newCalculation = {};
 let calculationsCounter = 0; //doesn't need to be stored in server
 // let tempArray = [];
 
@@ -25,30 +25,18 @@ function handleClear(){
 //gather operator on button click of operator button, push into array
 //ADD ERROR IF USER CLICKS TWO OPERATORS BEFORE CLICKING = BUTTON
 function getOperator(){
-    if (calculationsCounter == operatorArray.length){
-    let operator = $(this).text();
-    // console.log('operator', operator);
-        operatorArray.push(operator);
-    }
-    else {
-        // console.log('error! please only push one operator button');
-        // console.log(calculationsCounter);
-        operatorArray.pop();
-    }
-    // console.log('operator array in get operator', operatorArray);
+    newCalculation.operator = $(this).text();
+    // console.log(newCalculation);   
 }
 
 function gatherCalculation(){
     // console.log('operator inside gatherCalculation', operatorArray);
     calculationsCounter += 1;
     // console.log('counter', calculationsCounter)
-    let newCalculation = {
-        count: calculationsCounter,
-        num1: $('#num1In').val(),
-        operator: operatorArray[calculationsCounter -1],
-        num2: $('#num2In').val(),
-        // solution: 'filler' //add in server
-    } 
+        newCalculation.count = calculationsCounter;
+        newCalculation.num1 = $('#num1In').val();
+        newCalculation.num2 = $('#num2In').val();
+    console.log('full object', newCalculation);
     $.ajax({
         url: '/calculations',
         method: 'POST',
@@ -71,8 +59,18 @@ function getAllCalculations(){
     }).then(response =>{
         console.log('calculations array with solutions', response);
         $('#resultSpan').empty();
+        $('#tableBody').empty();
         for (let i=0; i<response.length; i++){
             $('#resultSpan').text(response[response.length-1].solution)
+            $('#tableBody').append(`
+                 <tr>
+                    <th scope="row">${response[i].count}</th>
+                    <td>${response[i].num1}</td>
+                    <td>${response[i].operator}</td>
+                    <td>${response[i].num2}</td>
+                    <td>${response[i].solution}</td>
+                </tr>
+            `);
         }
     })
 }
