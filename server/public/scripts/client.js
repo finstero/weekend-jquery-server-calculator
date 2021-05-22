@@ -9,10 +9,10 @@ function handleReady(){
     getAllCalculations();
 
     $('#equalsButton').on('click', gatherCalculation);
-    $('.operatorButton').on('click', getOperator);
+    $('.operatorButton').on('click', highlightOperator);
     $('#clearButton').on('click', handleClear);
 
-    newCalculation = {}; //tucker's method to get operator. figure out!
+    newCalculation = {}; //tucker's method to get operator.
 }
 let newCalculation = {};
 let calculationsCounter = 0; //doesn't need to be stored in server
@@ -20,37 +20,59 @@ let calculationsCounter = 0; //doesn't need to be stored in server
 
 function handleClear(){
     $('.numInput').val('');
+    $('.operatorButton').removeClass('blue');
 }
 
 //gather operator on button click of operator button, push into array
 //ADD ERROR IF USER CLICKS TWO OPERATORS BEFORE CLICKING = BUTTON
-function getOperator(){
-    newCalculation.operator = $(this).text();
-    // console.log(newCalculation);   
+function highlightOperator(){
+    // newCalculation.operator = $(this).text();
+    // console.log(newCalculation);  
+    $(this).toggleClass("blue");
 }
 
 function gatherCalculation(){
-    // console.log('operator inside gatherCalculation', operatorArray);
-    calculationsCounter += 1;
-    // console.log('counter', calculationsCounter)
-        newCalculation.count = calculationsCounter;
-        newCalculation.num1 = $('#num1In').val();
-        newCalculation.num2 = $('#num2In').val();
-    console.log('full object', newCalculation);
-    $.ajax({
-        url: '/calculations',
-        method: 'POST',
-        data: newCalculation
-    }).then(response => {
-        console.log('response', response);
-    });
-    getAllCalculations();
-    console.log('calculation object', newCalculation);
-    // tempArray.push(newCalculation);
-    // console.log('array of objects', tempArray);
-    // $('.numInput').val('');
-}
 
+    let count = 0;
+    $('.blue').each (function(i){
+        count += i
+        // console.log('log count', count);
+        // console.log('logging this', $(this).text());
+    })
+    // console.log('loggin count out of loop', count); 
+    if (count == 0 && $('.operatorButton').hasClass('blue')){
+        if ($('#num1In').val() && $('#num2In').val()){
+
+            $('.blue').each (function(i){
+                newCalculation.operator = $(this).text();
+            }); 
+            
+            calculationsCounter += 1;
+            newCalculation.count = calculationsCounter;
+            newCalculation.num1 = $('#num1In').val();
+            newCalculation.num2 = $('#num2In').val();
+
+            $.ajax({
+                url: '/calculations',
+                method: 'POST',
+                data: newCalculation
+            }).then(response => {
+                console.log('response', response);
+            });
+            getAllCalculations();
+            console.log('calculation object', newCalculation);
+        }
+        else{
+            console.log( 'no number somewhere');
+            alert('Please enter a number in each field');
+        }
+    }
+    else {
+        console.log('ERROR ERROR ERROR');
+        alert('Please choose ONE operator!');
+    }
+    // tempArray.push(newCalculation);
+}
 
 function getAllCalculations(){   
     $.ajax({
