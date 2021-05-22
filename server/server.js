@@ -14,13 +14,36 @@ app.use(express.static('server/public'));
 //telling server to use the widget bodyparser, which allows us to find the data we send in post request
 app.use(bodyParser.urlencoded({extended : true}));
 
+
+function calculateSolution(object){
+    if (object.operator == '+'){
+        object.solution = Number(object.num1) + Number(object.num2)
+    }
+    else if (object.operator == '-'){
+        object.solution = Number(object.num1) - Number(object.num2)
+    }
+    else if (object.operator == '*'){
+        object.solution = Number(object.num1) * Number(object.num2)
+    }
+    else if (object.operator == '/'){
+        object.solution = Number(object.num1) / Number(object.num2)
+    }
+
+}
+
+
 app.get('/calculations', (req, res) =>{
     console.log('got to /calculations');
     //sends to client.js (or whatever requests)
+    // console.log('calculations array with solutions', calculationsArray);
     res.send(calculationsArray);
 });
 
-
+app.post('/calculations', (req, res) =>{
+    console.log(req.body);
+    calculateSolution(req.body);
+    calculationsArray.push(req.body);
+})
 
 
 //telling server to listen for which port?
